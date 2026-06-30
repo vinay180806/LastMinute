@@ -9,7 +9,7 @@ import triageRoutes from './routes/triage';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = parseInt(process.env.PORT || '5000', 10);
 
 // Middleware
 app.use(helmet());
@@ -35,6 +35,10 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-app.listen(PORT, () => {
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'active', message: 'LastMinute API is live.' });
+});
+
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
 });
